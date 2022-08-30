@@ -1,0 +1,24 @@
+table{
+    text-align: center;
+    font-size: 1.2em;
+    border-style: solid;
+}
+
+th{
+    padding-right: 0.2em;
+    text-align: right;
+    border-style: none;
+    width: 7em;
+    height: 3em;  
+}
+
+td {
+    border-style: solid;
+    width: 3em;
+    height: 3em;
+}
+
+td:hover{
+    cursor: pointer;
+}
+

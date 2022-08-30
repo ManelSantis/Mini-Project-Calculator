@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <title>Calculator</title>
+</head>
+<body>
+    <div id = "calculator">
+        <table>
+            <tr>
+                <th colspan="4" id="numbers">0</th>
+            </tr>
+            <tr>
+                <td onclick="mouseClick(0)">%</td>
+                <td onclick="mouseClick(1); fullDelete();">CE</td>
+                <td onclick="mouseClick(2); fullDelete();">C</td>
+                <td onclick="mouseClick(3); deleteNumber();"><--</td>
+            </tr>
+            <tr>
+                <td onclick="mouseClick(4)">1/x</td>
+                <td onclick="mouseClick(5)">x^2</td>
+                <td onclick="mouseClick(6)">raiz X</td>
+                <td onclick="mouseClick(7)">/</td>
+            </tr>
+            <tr>
+                <td onclick="mouseClick(8); putNumbers(7);">7</td>
+                <td onclick="mouseClick(9); putNumbers(8);">8</td>
+                <td onclick="mouseClick(10); putNumbers(9);">9</td>
+                <td onclick="mouseClick(11)">X</td>
+            </tr>
+            <tr>
+                <td onclick="mouseClick(12); putNumbers(4);">4</td>
+                <td onclick="mouseClick(13); putNumbers(5);">5</td>
+                <td onclick="mouseClick(14); putNumbers(6);">6</td>
+                <td onclick="mouseClick(15)">-</td>
+            </tr>
+            <tr>
+                <td onclick="mouseClick(16); putNumbers(1);">1</td>
+                <td onclick="mouseClick(17); putNumbers(2);">2</td>
+                <td onclick="mouseClick(18); putNumbers(3);">3</td>
+                <td onclick="mouseClick(19)">+</td>
+            </tr>
+            <tr>
+                <td onclick="mouseClick(20)">+/-</td>
+                <td onclick="mouseClick(21); putNumbers(0);">0</td>
+                <td onclick="mouseClick(22); decimalNumber();">,</td>
+                <td onclick="mouseClick(23)">=</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
