@@ -1,10 +1,9 @@
-//var display = document.querySelector(".numbers");
 let display = document.getElementById("numbers");
 let displayOperators = document.getElementById("operators");
 let nums = [];
 let opera = [];
 
-function mouseClick(num){ //Indicate that the button is begin clicked
+function mouseClick(num) { //Indicate that the button is begin clicked
     const element = document.getElementById("calculator");
     element.getElementsByTagName("td")[num].style.backgroundColor = "rgb(167, 167, 167)";  
 
@@ -65,19 +64,46 @@ function division() { //Add / on the operators
     }
 }
 
+function root() {
+    
+}
+
 function equals() { //Result on display
     displayOperators.textContent = displayOperators.textContent + display.textContent;
     compiler(displayOperators.textContent);
     displayOperators.textContent = "";
     let result = 0;
     let j = 0;
-    for (let i = 0; i < (nums.length - 1); i++){
-        result = calc(nums[i], nums[i+1], opera[j]);
-        nums[i+1] = result;
-        j++;
+
+    if ((opera.includes("*")) || (opera.includes("/"))) {
+        for (let i = 0; i < (nums.length - 1); i++){
+            if ((opera[j] === "*") || (opera[j] === "/")) {
+                result = calc(nums[i], nums[i+1], opera[j]);
+                nums[i] = result;
+                nums[i + 1] = result;
+            }
+            j++;
+        }
+        j = 0;
+        for (let i = 0; i < (nums.length - 1); i++){
+            if ((opera[j] === "+") || (opera[j] === "-")) {
+                result = calc(nums[i], nums[i+1], opera[j]);
+                nums[i+1] = result;
+            }
+            j++;
+        }
+    } else {
+        for (let i = 0; i < (nums.length - 1); i++){
+            result = calc(nums[i], nums[i+1], opera[j]);
+            nums[i+1] = result;
+            j++;
+        }
     }
+    
 
     display.textContent = result;
+    nums = [];
+    opera = [];
 }
 
 function compiler(value) { //Make arrays for Operators and Numbers
@@ -126,6 +152,8 @@ function deleteNumber() { //Delete something from display
 }
 
 function fullDelete() { //Reset display
+    nums = [];
+    opera = [];
     display.textContent = "0";
 }
 
