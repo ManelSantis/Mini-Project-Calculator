@@ -12,6 +12,12 @@ th{
     height: 3em;  
 }
 
+#operators{
+    height: 1em;
+    font-size: 0.8em;
+    color: rgb(66, 66, 66);
+}
+
 td {
     border-style: solid;
     width: 3em;
