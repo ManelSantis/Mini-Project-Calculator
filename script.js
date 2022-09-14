@@ -29,7 +29,7 @@ function decimalNumber() {//Put a , on display (only one can exist)
 }
 
 function addition() { //Add + on the operators
-    if (display.textContent === "0"){
+    if (display.textContent === "0") {
         displayOperators.textContent = displayOperators.textContent.slice(0, -1) + "+"; //Change last operator
     } else {
         displayOperators.textContent = displayOperators.textContent + display.textContent + "+";
@@ -38,7 +38,7 @@ function addition() { //Add + on the operators
 }
 
 function subtration() { //Add - on the operators
-    if (display.textContent === "0"){
+    if (display.textContent === "0") {
         displayOperators.textContent = displayOperators.textContent.slice(0, -1) + "-"; //Change last operator
     } else {
         displayOperators.textContent = displayOperators.textContent + display.textContent + "-";
@@ -47,7 +47,7 @@ function subtration() { //Add - on the operators
 }
 
 function multiplication() { //Add * on the operators
-    if (display.textContent === "0"){
+    if (display.textContent === "0") {
         displayOperators.textContent = displayOperators.textContent.slice(0, -1) + "*"; //Change last operator
     } else {
         displayOperators.textContent = displayOperators.textContent + display.textContent + "*";
@@ -56,7 +56,7 @@ function multiplication() { //Add * on the operators
 }
 
 function division() { //Add / on the operators
-    if (display.textContent === "0"){
+    if (display.textContent === "0") {
         displayOperators.textContent = displayOperators.textContent.slice(0, -1) + "/"; //Change last operator
     } else {
         displayOperators.textContent = displayOperators.textContent + display.textContent + "/";
@@ -65,41 +65,57 @@ function division() { //Add / on the operators
 }
 
 function root() {
-    
+    if(display.textContent === "0") {
+        displayOperators.textContent = displayOperators.textContent + "√";
+    } else {
+        displayOperators.textContent = displayOperators.textContent + "√" + display.textContent + "+";
+        display.textContent = "0";
+    }
 }
 
 function equals() { //Result on display
     displayOperators.textContent = displayOperators.textContent + display.textContent;
     compiler(displayOperators.textContent);
     displayOperators.textContent = "";
+
     let result = 0;
     let j = 0;
 
-    if ((opera.includes("*")) || (opera.includes("/"))) {
-        for (let i = 0; i < (nums.length - 1); i++){
-            if ((opera[j] === "*") || (opera[j] === "/")) {
-                result = calc(nums[i], nums[i+1], opera[j]);
-                nums[i] = result;
-                nums[i + 1] = result;
-            }
-            j++;
-        }
-        j = 0;
-        for (let i = 0; i < (nums.length - 1); i++){
-            if ((opera[j] === "+") || (opera[j] === "-")) {
-                result = calc(nums[i], nums[i+1], opera[j]);
-                nums[i+1] = result;
-            }
-            j++;
-        }
-    } else {
-        for (let i = 0; i < (nums.length - 1); i++){
-            result = calc(nums[i], nums[i+1], opera[j]);
-            nums[i+1] = result;
-            j++;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i].includes("√")) {
+            nums[i] = nums[i].substring(1);
+            result = calc(nums[i], 0, "√");
+            nums[i] = result;
         }
     }
     
+    j = 0;
+
+    for (let i = 0; i < (nums.length - 1); i++){ //Calculate multiplications and divisions if exists
+        if ((opera[j] === "*") || (opera[j] === "/")) {
+            result = calc(nums[i], nums[i+1], opera[j]);
+            nums[i + 1] = result;
+            nums.splice(i, 1);
+            opera.splice(j, i);
+            i--;
+            j--;
+        }
+        j++;
+    }
+    
+    j = 0;
+        
+    for (let i = 0; i < (nums.length - 1); i++){ //Calculate addition and subtrations if exists
+        if ((opera[j] === "+") || (opera[j] === "-")) {
+            result = calc(nums[i], nums[i+1], opera[j]);
+            nums[i+1] = result;
+            nums.splice(i, 1);
+            opera.splice(j, i);
+            i--;
+            j--;
+        }
+        j++;
+    }    
 
     display.textContent = result;
     nums = [];
@@ -111,7 +127,7 @@ function compiler(value) { //Make arrays for Operators and Numbers
 
     let aux = "";
     value.map( character => {
-    if ((!isNaN(character)) || (character === ".")){
+    if ((!isNaN(character)) || (character === ".") || (character === "√")){
             aux = aux + character;        
         } else {
             nums.push(aux);
@@ -138,6 +154,10 @@ function calc(num1, num2, operator) { //Arithmetic
 
     if(operator === "/") {
         return (parseFloat(num1) / parseFloat(num2));
+    }
+
+    if (operator === "√") {
+    return Math.sqrt(parseFloat(num1), 2.0);
     }
     
 }
